@@ -13,6 +13,10 @@ import javax.swing.JPanel;
 
 public class welcome extends JFrame implements ActionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	String accName = Login.firstName;
 	JLabel hello = new JLabel();
 	JButton[] butArr = new JButton[4];
@@ -38,6 +42,7 @@ public class welcome extends JFrame implements ActionListener {
 		for(int i = 0 ; i < 4; i++) {
 			butArr[i].setSize(100,50);
 			butArr[i].setBackground(new Color(123, 122, 121));
+			butArr[i].setForeground(getBackground());
 			butArr[i].addActionListener(this);
 			butArr[i].setFocusable(false);
 			

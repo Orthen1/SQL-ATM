@@ -4,13 +4,21 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class Withdraw extends JFrame implements ActionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private static PreparedStatement ps;
 	JButton[] withBut = new JButton[7];
 	JButton ten;
 	JButton twenty;
@@ -21,6 +29,39 @@ public class Withdraw extends JFrame implements ActionListener {
 	JButton other;
 
 	JPanel panel = new JPanel();
+
+	void upData() {
+		String bal = String.valueOf(Login.balance);
+		String id = String.valueOf(Login.accId);
+		String sql = "update accounts set balance = ? where accId = ?";
+		try {
+			ps = Connect.getConnection().prepareStatement(sql);
+			ps.setString(1, bal); // balance
+			ps.setString(2, id); // id
+			ps.execute();
+
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+
+		}
+	}
+
+	void RetrunScreen() {
+		welcome welcome = new welcome("ATM", null);
+		welcome.setLocation(this.getLocation());
+		this.setVisible(false);
+		welcome.setVisible(true);
+		System.out.println("1");
+	}
+
+	Boolean isDebit(String typeOfCard) {
+		if (typeOfCard == "debit") {
+			return true;
+		} else {
+			return false;
+		}
+
+	}
 
 	public Withdraw() {
 		ten = new JButton("10");
@@ -68,41 +109,115 @@ public class Withdraw extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		String debit = "debit";
 		if (e.getSource() == ten) {
-			Login.balance -= 10;
-			welcome welcome = new welcome("ATM", null);
-			this.setVisible(false);
-			welcome.setLocation(this.getLocation());
+			if (Login.isCredit == false) {
+				System.out.println(Login.isCredit);
+				if (Login.balance - 10 == 0) {
+					Login.balance -= 10;
+					upData();
+					RetrunScreen();
+				} else if (Login.balance - 10 < 0) {
+					JOptionPane.showMessageDialog(ten, "Nedostatok prostreidkov na ucte");
+					RetrunScreen();
+				}
+
+			} else {
+				Login.balance -= 10;
+				upData();
+
+			}
+
 		}
 		if (e.getSource() == twenty) {
-			Login.balance -= 20;
-			welcome welcome = new welcome("ATM", null);
-			this.setVisible(false);
-			welcome.setLocation(this.getLocation());
+			if (Login.isCredit == false) {
+				System.out.println(Login.isCredit);
+				if (Login.balance - 20 == 0) {
+					Login.balance -= 20;
+					upData();
+					RetrunScreen();
+				} else if (Login.balance - 20 < 0) {
+					JOptionPane.showMessageDialog(twenty, "Nedostatok prostreidkov na ucte");
+					RetrunScreen();
+				}
+
+			} else {
+				Login.balance -= 20;
+				upData();
+
+			}
 		}
 		if (e.getSource() == fifty) {
-			Login.balance -= 50;
-			welcome welcome = new welcome("ATM", null);
-			this.setVisible(false);
-			welcome.setLocation(this.getLocation());
+			if (Login.isCredit == false) {
+				System.out.println(Login.isCredit);
+				if (Login.balance - 50 == 0) {
+					Login.balance -= 50;
+					upData();
+					RetrunScreen();
+				} else if (Login.balance - 50 < 0) {
+					JOptionPane.showMessageDialog(fifty, "Nedostatok prostreidkov na ucte");
+					RetrunScreen();
+				}
+
+			} else {
+				Login.balance -= 50;
+				upData();
+
+			}
 		}
 		if (e.getSource() == hundred) {
-			Login.balance -= 100;
-			welcome welcome = new welcome("ATM", null);
-			this.setVisible(false);
-			welcome.setLocation(this.getLocation());
+			if (Login.isCredit == false) {
+				System.out.println(Login.isCredit);
+				if (Login.balance - 100 == 0) {
+					Login.balance -= 100;
+					upData();
+					RetrunScreen();
+				} else if (Login.balance - 100 < 0) {
+					JOptionPane.showMessageDialog(hundred, "Nedostatok prostreidkov na ucte");
+					RetrunScreen();
+				}
+
+			} else {
+				Login.balance -= 100;
+				upData();
+
+			}
 		}
 		if (e.getSource() == twohundred) {
-			Login.balance -= 200;
-			welcome welcome = new welcome("ATM", null);
-			this.setVisible(false);
-			welcome.setLocation(this.getLocation());
+			if (Login.isCredit == false) {
+				System.out.println(Login.isCredit);
+				if (Login.balance - 200 == 0) {
+					Login.balance -= 200;
+					upData();
+					RetrunScreen();
+				} else if (Login.balance - 200 < 0) {
+					JOptionPane.showMessageDialog(twohundred, "Nedostatok prostreidkov na ucte");
+					RetrunScreen();
+				}
+
+			} else {
+				Login.balance -= 100;
+				upData();
+				
+			}
 		}
 		if (e.getSource() == threehundred) {
-			Login.balance -= 300;
-			welcome welcome = new welcome("ATM", null);
-			this.setVisible(false);
-			welcome.setLocation(this.getLocation());
+			if (Login.isCredit == false) {
+				System.out.println(Login.isCredit);
+				if (Login.balance - 300 == 0) {
+					Login.balance -= 300;
+					upData();
+					RetrunScreen();
+				} else if (Login.balance - 300 < 0) {
+					JOptionPane.showMessageDialog(threehundred, "Nedostatok prostreidkov na ucte");
+					RetrunScreen();
+				}
+
+			} else {
+				Login.balance -= 300;
+				upData();
+
+			}
 			// System.exit(1);
 		}
 

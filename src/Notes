@@ -1,0 +1,14 @@
+ register page - vytvorenie noveho zaznamu v databaze 
+
+ credit,limit, basic balance = 5 pri registracii,
+  
+
+ .getSelectedItem()
+
+JCheckBox - credit , JRadioButton,ButtonGroup
+
+
+
+ako automaticky priradit ID 
+
+a tvorenie zaznamov do databazy z tahanych dat 

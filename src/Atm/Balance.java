@@ -15,6 +15,10 @@ import Atm.Login;
 
 public class Balance extends JFrame implements ActionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	JLabel label = new JLabel();
 	JButton Return = new JButton("return");
 	Font font = new Font("SANS_SERIF", 30, 30);

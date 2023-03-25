@@ -1,5 +1,6 @@
 package Atm;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
@@ -11,27 +12,41 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 public class Login extends JFrame implements ActionListener {
 
-	static PreparedStatement ps;
-	static ResultSet rs;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private static PreparedStatement ps;
+	private static ResultSet rs;
 	static String name = "ATM";
-	static Double balance;
+	static double balance;
 	static String firstName;
+	static Boolean isCredit;
+	static int accId;
+	static int cardLimit;
 	JLabel label1 = new JLabel("Enter card no.");
 	JLabel label2 = new JLabel("Enter PIN");
 	TextField card = new TextField();
 	TextField pin = new TextField();
 	Font myFont = new Font("Skia", 40, 40);
-
+	JButton register = new JButton("Register");
 
 	static ArrayList<Acounts> Acount = new ArrayList<Acounts>();
 
 	Login(String name) {
-
+		
+		register.setBounds(350, 300, 100, 50);
+		register.setVisible(true);
+		register.setContentAreaFilled(false); // set bg none 
+		register.setBorderPainted(false); // set borders off
+		register.addActionListener(this);
+		register.setFocusable(false);
 		label1.setBounds(200, 0, 100, 50);
 		card.setBounds(140, 50, 200, 50);
 		card.setFont(myFont);
@@ -49,6 +64,7 @@ public class Login extends JFrame implements ActionListener {
 		this.add(card);
 		this.add(label2);
 		this.add(pin);
+		this.add(register);
 
 		this.setLayout(null);
 		this.setVisible(true);
@@ -63,6 +79,14 @@ public class Login extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
+		if(e.getSource() == register) {
+			Registration registration = new Registration( Login.this);
+			registration.setLocation(this.getLocationOnScreen());
+			this.setVisible(false);
+			registration.setVisible(true);
+			System.out.println(1);
+		}
 		String cN = card.getText();
 		String pw = pin.getText();
 		String sql = "SELECT * FROM accounts WHERE noCard = ? AND pin = ?";
@@ -74,8 +98,11 @@ public class Login extends JFrame implements ActionListener {
 			rs = ps.executeQuery();
 
 			if (rs.next()) {
-				firstName= rs.getString(5);
+				firstName = rs.getString(5);
 				balance = rs.getDouble(3);
+				accId = rs.getInt(4);
+				isCredit =rs.getBoolean(7);
+				cardLimit = rs.getInt(8);
 				welcome welcome = new welcome(name, Login.this);
 				welcome.setLocation(this.getLocationOnScreen());
 				this.setVisible(false);
