@@ -22,6 +22,22 @@ public class Other extends JFrame implements ActionListener {
 	JTextField text = new JTextField();
 	JButton withdraw = new JButton("Withdraw");
 
+	void upData() {
+		String bal = String.valueOf(Login.balance);
+		String id = String.valueOf(Login.accId);
+		String sql = "update accounts set balance = ? where accId = ?";
+		try {
+			ps = Connect.getConnection().prepareStatement(sql);
+			ps.setString(1, bal); // balance
+			ps.setString(2, id); // id
+			ps.execute();
+			ReturnScreen();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+
+		}
+	}
+
 	void ReturnScreen() {
 		welcome welcome = new welcome("ATM", null);
 		welcome.setLocation(this.getLocation());
@@ -63,19 +79,7 @@ public class Other extends JFrame implements ActionListener {
 			if ((Login.isCredit == false && limit() == false) || (Login.isCredit == false)) {
 				if ((Login.balance - Double.parseDouble(text.getText())) == 0) {
 					Login.balance -= Double.parseDouble(text.getText());
-					String bal = String.valueOf(Login.balance);
-					String id = String.valueOf(Login.accId);
-					String sql = "update accounts set balance = ? where accId = ?";
-					try {
-						ps = Connect.getConnection().prepareStatement(sql);
-						ps.setString(1, bal); // balance
-						ps.setString(2, id); // id
-						ps.execute();
-						ReturnScreen();
-					} catch (SQLException e1) {
-						e1.printStackTrace();
-
-					}
+					upData();
 
 				} else if (Login.balance - Double.parseDouble(text.getText()) < 0) {
 					JOptionPane.showMessageDialog(text, "Nedostatok prostreidkov na ucte");
@@ -83,25 +87,17 @@ public class Other extends JFrame implements ActionListener {
 				} else if (Login.isCredit == false && limit() == true) {
 					JOptionPane.showMessageDialog(text, "Precerpany limit");
 					ReturnScreen();
+				} else {
+					Login.balance -= Double.parseDouble(text.getText());
+					upData();
+
 				}
 			} else if (Login.isCredit == true && limit() == true) {
 				JOptionPane.showMessageDialog(text, "Precerpany limit");
 				ReturnScreen();
 			} else {
 				Login.balance -= Double.parseDouble(text.getText());
-				String bal = String.valueOf(Login.balance);
-				String id = String.valueOf(Login.accId);
-				String sql = "update accounts set balance = ? where accId = ?";
-				try {
-					ps = Connect.getConnection().prepareStatement(sql);
-					ps.setString(1, bal); // balance
-					ps.setString(2, id); // id
-					ps.execute();
-					ReturnScreen();
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-
-				}
+				upData();
 
 			}
 		}
