@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPasswordField;
 
 public class Login extends JFrame implements ActionListener {
 
@@ -33,7 +34,8 @@ public class Login extends JFrame implements ActionListener {
 	JLabel label1 = new JLabel("Enter card no.");
 	JLabel label2 = new JLabel("Enter PIN");
 	TextField card = new TextField();
-	TextField pin = new TextField();
+//	TextField pin = new TextField();
+	JPasswordField pin = new JPasswordField();
 	Font myFont = new Font("Skia", 40, 40);
 	JButton register = new JButton("Register");
 

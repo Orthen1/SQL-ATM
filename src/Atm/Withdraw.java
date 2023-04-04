@@ -39,7 +39,7 @@ public class Withdraw extends JFrame implements ActionListener {
 			ps.setString(1, bal); // balance
 			ps.setString(2, id); // id
 			ps.execute();
-
+			RetrunScreen();
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 
@@ -110,16 +110,21 @@ public class Withdraw extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		String debit = "debit";
+
 		if (e.getSource() == ten) {
 			if (Login.isCredit == false) {
 				System.out.println(Login.isCredit);
 				if (Login.balance - 10 == 0) {
 					Login.balance -= 10;
 					upData();
-					RetrunScreen();
+
 				} else if (Login.balance - 10 < 0) {
 					JOptionPane.showMessageDialog(ten, "Nedostatok prostreidkov na ucte");
 					RetrunScreen();
+				} else {
+					Login.balance -= 10;
+					upData();
+
 				}
 
 			} else {
@@ -135,10 +140,14 @@ public class Withdraw extends JFrame implements ActionListener {
 				if (Login.balance - 20 == 0) {
 					Login.balance -= 20;
 					upData();
-					RetrunScreen();
+
 				} else if (Login.balance - 20 < 0) {
 					JOptionPane.showMessageDialog(twenty, "Nedostatok prostreidkov na ucte");
 					RetrunScreen();
+				} else {
+					Login.balance -= 20;
+					upData();
+
 				}
 
 			} else {
@@ -153,10 +162,14 @@ public class Withdraw extends JFrame implements ActionListener {
 				if (Login.balance - 50 == 0) {
 					Login.balance -= 50;
 					upData();
-					RetrunScreen();
+
 				} else if (Login.balance - 50 < 0) {
 					JOptionPane.showMessageDialog(fifty, "Nedostatok prostreidkov na ucte");
 					RetrunScreen();
+				} else {
+					Login.balance -= 50;
+					upData();
+
 				}
 
 			} else {
@@ -171,10 +184,14 @@ public class Withdraw extends JFrame implements ActionListener {
 				if (Login.balance - 100 == 0) {
 					Login.balance -= 100;
 					upData();
-					RetrunScreen();
+
 				} else if (Login.balance - 100 < 0) {
 					JOptionPane.showMessageDialog(hundred, "Nedostatok prostreidkov na ucte");
 					RetrunScreen();
+				} else {
+					Login.balance -= 100;
+					upData();
+
 				}
 
 			} else {
@@ -189,16 +206,20 @@ public class Withdraw extends JFrame implements ActionListener {
 				if (Login.balance - 200 == 0) {
 					Login.balance -= 200;
 					upData();
-					RetrunScreen();
+
 				} else if (Login.balance - 200 < 0) {
 					JOptionPane.showMessageDialog(twohundred, "Nedostatok prostreidkov na ucte");
 					RetrunScreen();
+				} else {
+					Login.balance -= 200;
+					upData();
+
 				}
 
 			} else {
-				Login.balance -= 100;
+				Login.balance -= 200;
 				upData();
-				
+
 			}
 		}
 		if (e.getSource() == threehundred) {
@@ -207,10 +228,14 @@ public class Withdraw extends JFrame implements ActionListener {
 				if (Login.balance - 300 == 0) {
 					Login.balance -= 300;
 					upData();
-					RetrunScreen();
+
 				} else if (Login.balance - 300 < 0) {
 					JOptionPane.showMessageDialog(threehundred, "Nedostatok prostreidkov na ucte");
 					RetrunScreen();
+				} else {
+					Login.balance -= 300;
+					upData();
+
 				}
 
 			} else {
